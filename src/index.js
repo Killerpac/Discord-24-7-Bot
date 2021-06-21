@@ -52,7 +52,7 @@ if (!TOKEN) {
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
 		await channel.guild.me.voice.setSuppressed(false);
-    channel.setTopic('Lo-Fi Vibes 24/7');
+    await channel.setTopic('Lo-Fi Vibes 24/7');
       return connection
 	} catch (error) {
 		connection.destroy();
