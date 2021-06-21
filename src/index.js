@@ -1,11 +1,9 @@
-require('dotenv').config();
-const CHANNEL= process.env['CHANNEL']
-
-const TOKEN= process.env['TOKEN'];
-
-const LINKS = require("./config.json")
 const { Client, Intents} = require("discord.js");
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES,Intents.FLAGS.GUILDS] });
+client.config = require('./config');
+const CHANNEL = client.config.secret.CHANNEL
+const TOKEN = client.config.secret.TOKEN
+const LINKS = client.config.secret.LINKS.split(',')
 const ytdl = require('ytdl-core-discord');
 const { joinVoiceChannel,createAudioPlayer,
 	createAudioResource,
@@ -91,5 +89,5 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
   });
 
 client.login(TOKEN) //Login
-console.log('ready')
+console.log('Logged in as Nino')
 process.on('unhandledRejection', console.error);
