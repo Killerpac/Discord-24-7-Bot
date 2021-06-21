@@ -96,4 +96,3 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 client.login(TOKEN) //Login
 console.log('Logged in as Nino')
 process.on('unhandledRejection', console.error);
-require("./server.js")
