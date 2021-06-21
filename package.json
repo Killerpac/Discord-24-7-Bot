@@ -4,7 +4,10 @@
   "main": "index.js",
   "author": "Killerpac",
   "license": "MIT",
-
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "server.js"
+  },
   "dependencies": {
     "@discordjs/voice": "^0.5.0",
     "discord.js": "^13.0.0-dev.c850ae10270076c4b2e10b130dd8f88eed4ed201",
