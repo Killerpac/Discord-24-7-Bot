@@ -4,8 +4,7 @@ client.config = require('./config');
 const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
 const LINKS = client.config.secret.LINKS.split(',')
-//const ytdl = require('ytdl-core-discord');
-const ytdl = require('youtube-dl-exec');
+const ytdl = require('discord-ytdl-core');
 const { joinVoiceChannel,createAudioPlayer,
 	createAudioResource,
 	entersState,
@@ -29,16 +28,11 @@ if (!TOKEN) {
 
   async function playSong(url)
   {
-	const resource = createAudioResource(await ytdl(
-    url,
-    {
-      o: '-',
-      q: '',
-      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-      r: '100K',
-    },
-    { stdio: ['ignore', 'pipe', 'ignore'] },
-  ), {
+	const resource = createAudioResource(await ytdl(url, {
+    filter: "audioonly",
+    opusEncoded: true,
+    encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
+}), {
 		inputType: StreamType.Opus,
 	});
 
@@ -57,7 +51,7 @@ if (!TOKEN) {
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
 		await channel.guild.me.voice.setSuppressed(false);
-    await channel.setTopic('Lo-Fi Vibes 24/7');
+    channel.setTopic('Lo-Fi Vibes 24/7');
       return connection
 	} catch (error) {
 		connection.destroy();
