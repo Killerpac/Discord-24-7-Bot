@@ -1,9 +1,5 @@
 require('dotenv').config();
-const CHANNEL= process.env['CHANNEL']
-
-const TOKEN= process.env['TOKEN'];
-
-const LINKS = process.env.LINKS.split(' ');
+const { TOKEN, CHANNEL, LINKS} = require("./config.json");
 const { Client, Intents} = require("discord.js");
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES,Intents.FLAGS.GUILDS] });
 const ytdl = require('ytdl-core-discord');
