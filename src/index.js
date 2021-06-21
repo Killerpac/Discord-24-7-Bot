@@ -31,6 +31,7 @@ if (!TOKEN) {
 	const resource = createAudioResource(await ytdl(url, {
     filter: "audioonly",
     opusEncoded: true,
+    highWaterMark: 1 << 25,
     encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
 }), {
 		inputType: StreamType.Opus,
