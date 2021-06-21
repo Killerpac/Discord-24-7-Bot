@@ -10,7 +10,7 @@ tags:
 
 This starts Nino using [discord.js](https://discord.js.org/#/).
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscordjs&envs=TOKEN&TOKENDesc=Token+of+the+Discord+account+used)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscordjs&envs=TOKEN&TOKENDesc=Token+of+the+Discord+account+used,CHANNEL&CHANNELDesc=Channel+to+play+the+Music+in)
 
 ## ✨ Features
 
