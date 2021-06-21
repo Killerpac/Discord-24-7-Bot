@@ -22,7 +22,7 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 ## 💁‍♀️ How to use
 
 - Install dependencies `yarn`
-- Set the Environment Variables <LINK>,<TOKEN>,<CHANNEL>
+- Set the Environment Variables `LINK`,`TOKEN`,`CHANNEL`
 - Start Using `npm start`
 
 ## 📝 Notes
