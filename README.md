@@ -3,14 +3,14 @@ title: Nino Bot
 description: A 24/7 Discord bot For playing music
 tags:
   - discord.js
-  - typescript
+  - javascript
 ---
 
 # Nino Bot 
 
-This example starts a Discord bot using [discord.js](https://discord.js.org/#/).
+This starts Nino using [discord.js](https://discord.js.org/#/).
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscordjs&envs=DISCORD_TOKEN&DISCORD_TOKENDesc=Token+of+the+Discord+account+used)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fdiscordjs&envs=TOKEN&TOKENDesc=Token+of+the+Discord+account+used)
 
 ## ✨ Features
 

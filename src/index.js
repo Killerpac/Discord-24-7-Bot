@@ -17,18 +17,6 @@ const { joinVoiceChannel,createAudioPlayer,
 	StreamType,
 	AudioPlayerStatus,
 	VoiceConnectionStatus } = require('@discordjs/voice');
-const { stream } = require('npmlog');
-
-const getapp = (guildId) =>
-{
-  const app = client.api.applications(client.user.id)
-  if(guildId)
-  {
-    app.guilds(guildId)
-  }
-  return app;
-}
-let interval = null;
 if (!TOKEN) {
   console.error("Press provide a valid Discord Bot Token.");
   return process.exit(1);
@@ -103,26 +91,6 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   })
   });
-
-  client.on('message', async message => {
-	if (!client.application?.owner) await client.application?.fetch();
-
-	if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner.id) {
-		const data = {
-			name: 'echo',
-			description: 'Replies with your input!',
-			options: [{
-				name: 'input',
-				type: 'STRING',
-				description: 'The input which should be echoed back',
-				required: true,
-			}],
-		};
-
-		const command = await client.application?.commands.create(data);
-		console.log(command);
-	}
-});
 
 client.login(TOKEN) //Login
 console.log('ready')
