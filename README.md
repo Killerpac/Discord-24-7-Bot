@@ -1,6 +1,6 @@
 ---
-title: Discord bot
-description: A Discord bot written in TypeScript
+title: Nino Bot
+description: A 24/7 Discord bot For playing music
 tags:
   - discord.js
   - typescript

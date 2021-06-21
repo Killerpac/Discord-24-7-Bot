@@ -1,15 +1,23 @@
 {
-  "name": "discordjs",
-  "version": "1.0.0",
+  "name": "nino",
+  "version": "2.1.6",
   "main": "index.js",
-  "author": "Jake Runzer",
+  "author": "Killerpac",
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
   },
   "dependencies": {
-    "discord.js": "^12.5.1"
+    "@discordjs/voice": "^0.3.1",
+    "discord-ytdl-core": "^5.0.3",
+    "discord.js": "^13.0.0-dev.1ac9a2eb5bfef6d009de7c54d3fac5e3d4a5afdc",
+    "dotenv": "^10.0.0",
+    "ffmpeg-static": "^4.3.0",
+    "libsodium-wrappers": "^0.7.9",
+    "npmlog": "^4.1.2",
+    "opusscript": "0.0.8",
+    "ytdl-core": "^4.8.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
