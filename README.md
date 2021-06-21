@@ -6,7 +6,7 @@ tags:
   - typescript
 ---
 
-# Discord.js Example
+# Nino Bot 
 
 This example starts a Discord bot using [discord.js](https://discord.js.org/#/).
 
