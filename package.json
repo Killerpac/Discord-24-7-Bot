@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "server.js"
+    "start": "./server.js"
   },
   "dependencies": {
     "@discordjs/voice": "^0.5.0",
