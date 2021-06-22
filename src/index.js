@@ -4,15 +4,16 @@ client.config = require('./config');
 const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
 const LINKS = client.config.secret.LINKS.split(',')
-const ytdl = require('discord-ytdl-core');
+const ytdl = require('youtube-dl-exec');
 const { joinVoiceChannel,createAudioPlayer,
-	createAudioResource,
 	entersState,
   getVoiceConnection,
+  createAudioResource,
   AudioPlayerState,
 	StreamType,
 	AudioPlayerStatus,
 	VoiceConnectionStatus } = require('@discordjs/voice');
+  const voice_1 = require('@discordjs/voice');
 if (!TOKEN) {
   console.error("Press provide a valid Discord Bot Token.");
   return process.exit(1);
@@ -24,18 +25,19 @@ if (!TOKEN) {
   return process.exit(1);
 }
  const player = createAudioPlayer();
-  
-
   async function playSong(url)
   {
-	const resource = createAudioResource(await ytdl(url, {
-    filter: "audioonly",
-    opusEncoded: true,
-    highWaterMark: 1 << 25,
-    encoderArgs: ['-af', 'bass=g=10,dynaudnorm=f=200']
-}), {
-		inputType: StreamType.Opus,
-	});
+    var process = ytdl.raw(url, {
+      o: '-',
+      q: '',
+      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+      r: '100K'
+  }, { stdio: ['ignore', 'pipe', 'ignore'] });
+  if (!process.stdout) {
+      reject(new Error('No stdout'));
+      return;
+  }
+  const resource = createAudioResource(process.stdout)
 
 	player.play(resource);
 	return entersState(player, AudioPlayerStatus.Playing, 10e3);
@@ -52,7 +54,7 @@ if (!TOKEN) {
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
 		await channel.guild.me.voice.setSuppressed(false);
-    await channel.setTopic('Lo-Fi Vibes 24/7');
+    await channel.setTopic(`${client.config.secret.TOPIC}`);
       return connection
 	} catch (error) {
 		connection.destroy();
@@ -62,14 +64,14 @@ if (!TOKEN) {
 
 
 client.on('ready', async () => {
-client.user.setPresence({ activities: [{ name: 'Music 24/7',type:'STREAMING' }] });
+client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,type:'STREAMING' }] });
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
 
   if (!channel) {
     console.error("The provided channel ID doesn't exist, or I don't have permission to view that channel. Because of that, I'm aborting now.");
     return process.exit(1);
-  } else if (channel.type !== "stage") {
-    console.error("The provided channel ID is NOT stage channel. Because of that, I'm aborting now.");
+  } else if (!(channel.type == "voice" || channel.type == "stage")) {
+    console.error("The provided channel ID is neither stage channel Nor A Voice Channel. Because of that, I'm aborting now.");
     return process.exit(1);
   }
   const random = LINKS[Math.floor(Math.random() * LINKS.length)]
@@ -94,5 +96,5 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
   });
 
 client.login(TOKEN) //Login
-console.log('Logged in as Nino')
+console.log('Logged in Successfully')
 process.on('unhandledRejection', console.error);
