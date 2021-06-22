@@ -5,15 +5,13 @@ const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
 const LINKS = client.config.secret.LINKS.split(',')
 const ytdl = require('youtube-dl-exec');
+const yt = require("ytdl-core");
 const { joinVoiceChannel,createAudioPlayer,
 	entersState,
   getVoiceConnection,
   createAudioResource,
-  AudioPlayerState,
-	StreamType,
 	AudioPlayerStatus,
 	VoiceConnectionStatus } = require('@discordjs/voice');
-  const voice_1 = require('@discordjs/voice');
 if (!TOKEN) {
   console.error("Press provide a valid Discord Bot Token.");
   return process.exit(1);
@@ -53,8 +51,11 @@ if (!TOKEN) {
 
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
-		await channel.guild.me.voice.setSuppressed(false);
+		if(channel.type == "stage")
+    {
+    await channel.guild.me.voice.setSuppressed(false);
     await channel.setTopic(`${client.config.secret.TOPIC}`);
+    }
       return connection
 	} catch (error) {
 		connection.destroy();
@@ -94,7 +95,43 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   })
   });
+  client.on('message', async (message) => {
+    if (!message.guild) return;
+    if (!client.application?.owner) await client.application?.fetch();
+  
+    if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner?.id) {
+      await message.guild.commands.set([
+        {
+          name: 'play',
+          description: 'Plays a song',
+          options: [
+            {
+              name: 'song',
+              type: 'STRING',
+              description: 'The URL of the song to play',
+              required: true,
+            },
+          ],
+        },
+      ]);
 
+      await message.reply('Deployed!');
+    }
+  });
+
+  client.on('interaction', async (interaction) => {
+    if (!interaction.isCommand() || !interaction.guildID) return;
+  
+    if (interaction.commandName === 'play') {
+      await interaction.defer();
+      // Extract the video URL from the command
+      const url = interaction.options.get('song').value;
+      if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true }).catch(console.warn);
+        await playSong(url)
+      interaction.followUp({ content: 'Playing The Requested Song', ephemeral: true }).catch(console.warn);
+    }
+  });
+    
 client.login(TOKEN) //Login
 console.log('Logged in Successfully')
 process.on('unhandledRejection', console.error);

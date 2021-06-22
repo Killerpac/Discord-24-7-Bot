@@ -2,7 +2,7 @@
 title: Nino Bot
 description: A 24/7 Discord bot For playing music
 tags:
-  - discord.js
+  - discord.js@13
   - javascript
 ---
 
@@ -20,13 +20,14 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 - Auto-Reconnect if disconnected
 - Easy To Understand Code
 - Capable Of playing Livestreams and Looping Songs 
+- Simple Play Command
 
 ## 💁‍♀️ How to use
 
 - Clone The Repo
 - Install dependencies `npm i`
 - Set the Environment Variables `TOKEN`,`CHANNEL`
-- Setup YouTube Links in `config.js`
+- Setup `LINKS`,`STATUS`,`TOPIC` in `config.js`
 - Start Using `npm start`
 
 ## 📝 Notes
