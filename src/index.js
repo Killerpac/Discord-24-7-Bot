@@ -144,9 +144,8 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
       await interaction.defer();
       // Extract the video URL from the command
       const url = interaction.options.get('song').value;
-      if(interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.followUp({ content: 'You Dont Have The permisssion to Change Music:[ADMINISTRATOR]', ephemeral: true }).catch(console.warn);
+      if(interaction.member.roles.cache.some(r=>["Moderator", "Admin","👨‍💻 Dave"].includes(r.name))) return interaction.followUp({ content: "You Don't Have The Permisssion to Change Music:[ADMINISTRATOR]", ephemeral: true }).catch(console.warn);
       else if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true }).catch(console.warn);
-     
         await playSong(url)
       interaction.followUp({ content: 'Playing The Requested Song', ephemeral: true }).catch(console.warn);
     }
