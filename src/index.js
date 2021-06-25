@@ -4,7 +4,7 @@ client.config = require('./config');
 const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
 const LINKS = client.config.secret.LINKS.split(',')
-const ytdl = require('youtube-dl-exec');
+const ytdl = require('youtube-dl-exec').raw;
 const yt = require("ytdl-core");
 const { joinVoiceChannel,createAudioPlayer,
 	entersState,
@@ -23,19 +23,37 @@ if (!TOKEN) {
   return process.exit(1);
 }
  const player = createAudioPlayer();
+
+ function stream(url)
+ {
+  if (!url || typeof url !== "string") throw new Error("Invalid url");
+
+  const ytdlProcess = ytdl(url, {
+          o: '-',
+          q: '',
+          f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
+          r: '100K',
+      },
+      {
+          stdio: ['ignore', 'pipe', 'ignore']
+      }
+  );
+
+  if (!ytdlProcess.stdout) throw new Error('No stdout');
+  const stream = ytdlProcess.stdout;
+
+  stream.on("error", () => {
+      if (!ytdlProcess.killed) ytdlProcess.kill();
+      stream.resume();
+  });
+
+  return stream;
+}
+
   async function playSong(url)
   {
-    var process = ytdl.raw(url, {
-      o: '-',
-      q: '',
-      f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-      r: '100K'
-  }, { stdio: ['ignore', 'pipe', 'ignore'] });
-  if (!process.stdout) {
-      reject(new Error('No stdout'));
-      return;
-  }
-  const resource = createAudioResource(process.stdout)
+
+  const resource = createAudioResource(stream(url))
 
 	player.play(resource);
 	return entersState(player, AudioPlayerStatus.Playing, 10e3);
@@ -126,7 +144,9 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
       await interaction.defer();
       // Extract the video URL from the command
       const url = interaction.options.get('song').value;
-      if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true }).catch(console.warn);
+      if(interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.followUp({ content: 'You Dont Have The permisssion to Change Music:[ADMINISTRATOR]', ephemeral: true }).catch(console.warn);
+      else if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true }).catch(console.warn);
+     
         await playSong(url)
       interaction.followUp({ content: 'Playing The Requested Song', ephemeral: true }).catch(console.warn);
     }
