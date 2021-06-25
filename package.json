@@ -11,7 +11,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "@discordjs/voice": "^0.5.0",
-    "discord.js": "^13.0.0-dev.c850ae10270076c4b2e10b130dd8f88eed4ed201",
+    "discord.js": "^13.0.0-dev.5af2ef5fbc7ad11281f38384c360ae79efe63b39",
     "dotenv": "^10.0.0",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
