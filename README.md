@@ -19,7 +19,8 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 - Capable of Playing In Stage Channels
 - Auto-Reconnect if disconnected
 - Easy To Understand Code
-- Capable Of playing Livestreams and Looping Songs 
+- Capable Of Looping Songs in a Random Fashion
+- Stops Playback When No One In Channel
 - Simple Play Command
 
 ## 💁‍♀️ How to use

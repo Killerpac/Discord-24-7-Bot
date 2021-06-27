@@ -1,4 +1,4 @@
-const { Client, Intents} = require("discord.js");
+const { Client, Intents, GuildChannel} = require("discord.js");
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES,Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MEMBERS] });
 client.config = require('./config');
 const CHANNEL = client.config.secret.CHANNEL
@@ -24,6 +24,14 @@ if (!TOKEN) {
 }
  const player = createAudioPlayer();
 
+ function isEmpty(channel){
+      return channel.members.filter((member) => !member.user.bot).size === 0;
+ }
+
+ function manypeople(channel)
+ {
+  return channel.members.filter((member) => !member.user.bot).size > 0;
+ }
  function stream(url)
  {
   if (!url || typeof url !== "string") throw new Error("Invalid url");
@@ -98,7 +106,6 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
     await connection.subscribe(player);
     await playSong(random);
 
-
 player.on(AudioPlayerStatus.Idle, async () =>{
  const random = LINKS[Math.floor(Math.random() * LINKS.length)]
      await playSong(random)
@@ -136,6 +143,19 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
       await message.reply('Deployed!');
     }
   });
+
+  client.on("voiceStateUpdate", async ()=>{
+  let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
+   if(isEmpty(channel)) 
+   {
+     player.pause()
+   }
+   else{
+     player.unpause()
+   }
+
+});
+  
 
   client.on('interaction', async (interaction) => {
     if (!interaction.isCommand() || !interaction.guildID) return;
