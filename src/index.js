@@ -139,8 +139,8 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   client.on("voiceStateUpdate", async ()=>{
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
-   if(isEmpty(channel)) player.pause()
-   else if(manypeople(channel)){}
+   if(isEmpty(channel)) player.pause();
+   else if(manypeople(channel));
    else player.unpause();
 
 });
