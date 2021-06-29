@@ -31,11 +31,7 @@ if (!TOKEN) {
  function isEmpty(channel){
       return channel.members.filter((member) => !member.user.bot).size === 0;
  }
-
- function manypeople(channel)
- {
-  return channel.members.filter((member) => !member.user.bot).size > 0;
- }
+//This is a comment
  function stream(url)
  {
   if (!url || typeof url !== "string") throw new Error("Invalid url");
@@ -61,7 +57,7 @@ if (!TOKEN) {
   });
   return stream
 }
-
+//Here is another comment
   async function playSong(url)
   {
   const resource = createAudioResource(stream(url))
@@ -139,8 +135,7 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   client.on("voiceStateUpdate", async ()=>{
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
-   if(isEmpty(channel)) player.pause();
-   else if(manypeople(channel));
+   if(isEmpty(channel)) player.pause(); 
    else player.unpause();
 
 });
