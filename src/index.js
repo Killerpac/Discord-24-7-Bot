@@ -1,5 +1,5 @@
-const { Client, Intents, GuildChannel} = require("discord.js");
-const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES,Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MEMBERS] });
+const { Client, Intents} = require("discord.js");
+const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES,Intents.FLAGS.GUILDS,Intents.FLAGS.GUILD_MEMBERS]});
 client.config = require('./config');
 const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
@@ -23,6 +23,9 @@ if (!TOKEN) {
   return process.exit(1);
 }
  const player = createAudioPlayer();
+ function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
  function isEmpty(channel){
       return channel.members.filter((member) => !member.user.bot).size === 0;
@@ -51,30 +54,25 @@ if (!TOKEN) {
   const stream = ytdlProcess.stdout;
 
   stream.on("error", () => {
+    console.log(stdout)
       if (!ytdlProcess.killed) ytdlProcess.kill();
       stream.resume();
   });
-
-  return stream;
+  return stream
 }
 
   async function playSong(url)
   {
-
   const resource = createAudioResource(stream(url))
-
-	player.play(resource);
+  player.play(resource);
 	return entersState(player, AudioPlayerStatus.Playing, 10e3);
 }
-
-
   async function connectToChannel(channel) {
 	const connection = joinVoiceChannel({
 		channelId: channel.id,
 		guildId: channel.guild.id,
 		adapterCreator:channel.guild.voiceAdapterCreator
 	});
-
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
 		if(channel.type == "stage")
@@ -82,14 +80,12 @@ if (!TOKEN) {
     await channel.guild.me.voice.setSuppressed(false);
     await channel.setTopic(`${client.config.secret.TOPIC}`);
     }
-      return connection
+    return connection
 	} catch (error) {
 		connection.destroy();
 		throw error;
 	}
-  }
-
-
+}
 client.on('ready', async () => {
 client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,type:'STREAMING' }] });
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
@@ -101,22 +97,18 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
     console.error("The provided channel ID is neither stage channel Nor A Voice Channel. Because of that, I'm aborting now.");
     return process.exit(1);
   }
-  const random = LINKS[Math.floor(Math.random() * LINKS.length)]
     const connection = await connectToChannel(channel);
     await connection.subscribe(player);
-    await playSong(random);
-
-player.on(AudioPlayerStatus.Idle, async () =>{
- const random = LINKS[Math.floor(Math.random() * LINKS.length)]
-     await playSong(random)
+    await playSong(LINKS[getRandomInt(LINKS.length)]);
+    player.on(AudioPlayerStatus.Idle, async () =>{
+       await playSong(LINKS[getRandomInt(LINKS.length)])
     })
 
 const voiceConnection = getVoiceConnection(channel.guild.id)
   voiceConnection.on(VoiceConnectionStatus.Disconnected,async  () => {
-    const random = LINKS[Math.floor(Math.random() * LINKS.length)]
     const conne = await connectToChannel(channel);
     await conne.subscribe(player);
-    await playSong(random);
+    await playSong(LINKS[getRandomInt(LINKS.length)]);
 
   })
   });
@@ -146,17 +138,11 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   client.on("voiceStateUpdate", async ()=>{
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
-   if(isEmpty(channel)) 
-   {
-     player.pause()
-   }
-   else{
-     player.unpause()
-   }
+   if(isEmpty(channel)) player.pause()
+   else if(manypeople(channel)){}
+   else player.unpause();
 
 });
-  
-
   client.on('interaction', async (interaction) => {
     if (!interaction.isCommand() || !interaction.guildID) return;
   
