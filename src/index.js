@@ -15,6 +15,7 @@ const { joinVoiceChannel,createAudioPlayer,
 if (!TOKEN) {
   console.error("Press provide a valid Discord Bot Token.");
   return process.exit(1);
+  
 } else if (!CHANNEL || Number(CHANNEL) == NaN) {
   console.log("Please provide a valid channel ID.");
   return process.exit(1);
