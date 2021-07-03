@@ -51,7 +51,6 @@ if (!TOKEN) {
   const stream = ytdlProcess.stdout;
 
   stream.on("error", () => {
-    console.log(stdout)
       if (!ytdlProcess.killed) ytdlProcess.kill();
       stream.resume();
   });
