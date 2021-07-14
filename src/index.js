@@ -73,7 +73,7 @@ if (!TOKEN) {
 		if(channel.type == "GUILD_STAGE_VOICE")
     {
     await channel.guild.me.voice.setSuppressed(false);
-    await channel.setTopic(`${client.config.secret.TOPIC}`);
+    channel.setTopic(`${client.config.secret.TOPIC}`);
     }
     return connection
 	} catch (error) {
