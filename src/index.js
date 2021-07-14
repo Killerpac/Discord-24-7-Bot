@@ -94,6 +94,7 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
   }
     const connection = await connectToChannel(channel);
     await connection.subscribe(player);
+    await playSong(LINKS[getRandomInt(LINKS.length)]);
     player.on(AudioPlayerStatus.Idle, async () =>{
        await playSong(LINKS[getRandomInt(LINKS.length)])
     })
