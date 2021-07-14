@@ -10,8 +10,6 @@ tags:
 
 This starts Nino using [discord.js](https://discord.js.org/#/).
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https%3A%2F%2Fgithub.com%2FKillerpac%2FNino-A-Discord-24-7-Bot&envs=TOKEN%2CCHANNEL&TOKENDesc=Token+For+the+Bot+To+Run&CHANNELDesc=Channel+in+which+the+music+will+be+played%21%21)
-
 ## ✨ Features
 
 - Discord.js@13
@@ -37,3 +35,7 @@ The server started launches a Discord bot with a couple of basic commands. The c
 
 Requires Discord.js@13 so You need to install it or else it won't run
 Use `npm i discord.js@dev` To install discord.js@13 if Needed
+
+Environment Variables are to be set by You.You Can also Create a .env File
+`TOKEN` is the Discord Bot Token.
+`CHANNEL` is the Discord Channel you want To ply the Music in.The Channel ID.

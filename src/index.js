@@ -27,7 +27,6 @@ if (!TOKEN) {
  function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
-
  function isEmpty(channel){
       return channel.members.filter((member) => !member.user.bot).size === 0;
  }
@@ -95,7 +94,6 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
   }
     const connection = await connectToChannel(channel);
     await connection.subscribe(player);
-    await playSong(LINKS[getRandomInt(LINKS.length)]);
     player.on(AudioPlayerStatus.Idle, async () =>{
        await playSong(LINKS[getRandomInt(LINKS.length)])
     })
@@ -108,7 +106,7 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   })
   });
-  client.on('message', async (message) => {
+  client.on('messageCreate', async (message) => {
     if (!message.guild) return;
     if (!client.application?.owner) await client.application?.fetch();
   
@@ -138,17 +136,17 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
    else player.unpause();
 
 });
-  client.on('interaction', async (interaction) => {
+  client.on('interactionCreate', async (interaction) => {
     if (!interaction.isCommand() || !interaction.guildID) return;
   
     if (interaction.commandName === 'play') {
       await interaction.defer();
       // Extract the video URL from the command
       const url = interaction.options.get('song').value;
-      if(!interaction.member.roles.cache.some(r=>["Moderator", "Admin","👨‍💻 Dave","Founder"].includes(r.name))) return interaction.followUp({ content: "You Don't Have The Permisssion to Change Music:[Dave,Mod,Admin,Founder]", ephemeral: true }).catch(console.warn);
-      else if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true }).catch(console.warn);
+      if(!interaction.member.roles.cache.some(r=>["Moderator", "Admin","👨‍💻 Dave","Founder"].includes(r.name))) return interaction.followUp({ content: "You Don't Have The Permisssion to Change Music:[Dave,Mod,Admin,Founder]", ephemeral: true });
+      else if(!yt.validateURL(url)) return interaction.followUp({ content: 'Invalid URL or a Playlist', ephemeral: true });
         await playSong(url)
-      interaction.followUp({ content: 'Playing The Requested Song', ephemeral: true }).catch(console.warn);
+      interaction.followUp({ content: 'Playing The Requested Song', ephemeral: true });
     }
   });
     
