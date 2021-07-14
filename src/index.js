@@ -88,7 +88,7 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
   if (!channel) {
     console.error("The provided channel ID doesn't exist, or I don't have permission to view that channel. Because of that, I'm aborting now.");
     return process.exit(1);
-  } else if (!(channel.type == "voice" || channel.type == "stage")) {
+  } else if (!(channel.type == "GUILD_STAGE_VOICE" || channel.type == "GUILD_VOICE")) {
     console.error("The provided channel ID is neither stage channel Nor A Voice Channel. Because of that, I'm aborting now.");
     return process.exit(1);
   }
