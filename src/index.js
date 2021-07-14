@@ -70,7 +70,7 @@ if (!TOKEN) {
 	});
 	try {
 		await entersState(connection,VoiceConnectionStatus.Ready, 10e3);
-		if(channel.type == "stage")
+		if(channel.type == "GUILD_STAGE_VOICE")
     {
     await channel.guild.me.voice.setSuppressed(false);
     await channel.setTopic(`${client.config.secret.TOPIC}`);
