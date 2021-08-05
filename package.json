@@ -10,14 +10,15 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
-    "@discordjs/voice": "^0.5.4",
-    "discord.js": "^13.0.0-dev.98c6078.1626221017",
+    "@discordjs/voice": "^0.5.5",
+    "discord.js": "^13.0.0-dev.t1628124537.3eb4140",
     "dotenv": "^10.0.0",
     "ffmpeg-static": "^4.4.0",
     "libsodium-wrappers": "^0.7.9",
     "npmlog": "^4.1.2",
     "youtube-dl-exec": "^1.2.4",
-    "ytdl-core": "^4.8.3"
+    "ytdl-core": "^4.9.1",
+    "ytpl": "^2.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
