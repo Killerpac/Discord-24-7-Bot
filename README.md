@@ -37,5 +37,6 @@ Requires Discord.js@13 so You need to install it or else it won't run
 Use `npm i discord.js@dev` To install discord.js@13 if Needed
 
 Environment Variables are to be set by You.You Can also Create a .env File
+
 `TOKEN` is the Discord Bot Token.
-`CHANNEL` is the Discord Channel you want To ply the Music in.The Channel ID.
+`CHANNEL` is the Discord Channel ID you want To play the Music in.[VOICE](https://discord.js.org/#/docs/main/master/class/VoiceChannel?scrollTo=id) or [STAGE](https://discord.js.org/#/docs/main/master/class/StageChannel?scrollTo=id)
