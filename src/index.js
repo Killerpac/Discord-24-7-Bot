@@ -107,29 +107,6 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 
   })
   });
-  client.on('messageCreate', async (message) => {
-    if (!message.guild) return;
-    if (!client.application?.owner) await client.application?.fetch();
-  
-    if (message.content.toLowerCase() === '!deploy' && message.author.id === client.application?.owner?.id) {
-      await message.guild.commands.set([
-        {
-          name: 'play',
-          description: 'Plays a song',
-          options: [
-            {
-              name: 'song',
-              type: 'STRING',
-              description: 'The URL of the song to play',
-              required: true,
-            },
-          ],
-        },
-      ]);
-
-      await message.reply('Deployed!');
-    }
-  });
 
   client.on("voiceStateUpdate", async ()=>{
   let channel = client.channels.cache.get(CHANNEL) || await client.channels.fetch(CHANNEL)
@@ -140,7 +117,7 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
   client.on('interactionCreate', async (interaction) => {
     if (!interaction.isCommand() || !interaction.guildID) return;
   
-    if (interaction.commandName === 'play') {
+    if (interaction.commandName == 'play') {
       await interaction.defer();
       // Extract the video URL from the command
       const url = interaction.options.get('song').value;
@@ -154,3 +131,4 @@ const voiceConnection = getVoiceConnection(channel.guild.id)
 client.login(TOKEN) //Login
 console.log('Logged in Successfully')
 process.on('unhandledRejection', console.error);
+require("./reload")
