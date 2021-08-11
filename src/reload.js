@@ -22,7 +22,7 @@ const rest = new REST({ version: "9" }).setToken(process.env['TOKEN']);
     console.log("Started refreshing application [/] commands.");
 
     await rest.put(
-        Routes.applicationCommands(process.env['ID_CLIENT'],"874148548340506644"),
+        Routes.applicationCommands(process.env['ID_CLIENT']),
         { body: commands },
       );
 
