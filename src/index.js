@@ -60,8 +60,9 @@ if (!TOKEN) {
   {
   const resource = createAudioResource(stream(url),{
     inlineVolume: true,
-  }).volume(0.5);
-  player.play(resource);
+  })
+
+ await player.play(resource,{volume:0.5});
 	return entersState(player, AudioPlayerStatus.Playing, 10e3);
 }
   async function connectToChannel(channel) {
