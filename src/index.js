@@ -58,7 +58,9 @@ if (!TOKEN) {
 //Here is another comment
   async function playSong(url)
   {
-  const resource = createAudioResource(stream(url))
+  const resource = createAudioResource(stream(url),{
+    inlineVolume: true,
+  }).volume(0.5);
   player.play(resource);
 	return entersState(player, AudioPlayerStatus.Playing, 10e3);
 }
