@@ -25,8 +25,8 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 
 Click this to deploy-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-or
 
+### Alternatively, you can do it manually-
 - Clone The Repo
 - Install dependencies `npm i`
 - Set the Environment Variables `TOKEN`,`CHANNEL`
