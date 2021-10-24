@@ -26,7 +26,8 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 
 ### Easily deploy to Heroku-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-- Set the Environment Variables `TOKEN`,`CHANNEL`,`LINKS`,`STATUS`,`TOPIC` in Heroku settings
+- Set the Environment Variables `TOKEN`,`CHANNEL` in Heroku settings
+- Optionally, add `LINKS`,`STATUS`,`TOPIC` to change the default values
 
 
 ### Alternatively, you can do it manually-
