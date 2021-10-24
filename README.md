@@ -23,8 +23,12 @@ This starts Nino using [discord.js](https://discord.js.org/#/).
 
 ## 💁‍♀️ How to use
 
-Click this to deploy-
+
+### Easily deploy to Heroku-
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+- Set the Environment Variables `TOKEN`,`CHANNEL`
+- Setup `LINKS`,`STATUS`,`TOPIC` in `config.js`
+
 
 ### Alternatively, you can do it manually-
 - Clone The Repo
