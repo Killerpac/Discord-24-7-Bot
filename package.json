@@ -9,8 +9,6 @@
     "start": "node src/index.js"
   },
   "dependencies": {
-    "node": "^16.11.1",
-    "npm": "^8.1.0",
     "@discordjs/opus": "^0.6.0",
     "@discordjs/rest": "^0.1.0-canary.0",
     "@discordjs/voice": "^0.6.0",
@@ -25,5 +23,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
+  },
+  "engines": {
+   "node": "^16.x", 
   }
 }
