@@ -5,7 +5,7 @@
   "author": "Killerpac",
   "license": "MIT",
   "engines": {
-   "node": "^16.x"
+   "node": "^16.8.x"
   },
   "scripts": {
     "dev": "nodemon src/index.js",
