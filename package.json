@@ -4,9 +4,6 @@
   "main": "index.js",
   "author": "Killerpac",
   "license": "MIT",
-  "engines": {
-   "node": "^16.8.x"
-  },
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js"
