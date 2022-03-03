@@ -1,1 +1,1 @@
-worker : 'node nino.js'
+worker:node nino.js
