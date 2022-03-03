@@ -135,4 +135,3 @@ client.login(TOKEN) //Login
 console.log('Logged in Successfully')
 process.on('unhandledRejection', console.error);
 require("./reload")
-require('./server')
