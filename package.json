@@ -5,8 +5,8 @@
   "author": "Killerpac",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon server.js",
-    "start": "node server.js"
+    "dev": "nodemon nino.js",
+    "start": "node nino.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.6.0",
