@@ -4,14 +4,15 @@ client.config = require("./config");
 const CHANNEL = client.config.secret.CHANNEL
 const TOKEN = client.config.secret.TOKEN
 const LINKS = client.config.secret.LINKS.split(',')
-const ytdl = require('youtube-dl-exec').raw;
+const ytdl = require('youtube-dl-exec').exec
 const yt = require("ytdl-core");
 const { joinVoiceChannel,createAudioPlayer,
 	entersState,
   getVoiceConnection,
   createAudioResource,
 	AudioPlayerStatus,
-	VoiceConnectionStatus } = require('@discordjs/voice');
+	VoiceConnectionStatus, 
+  StreamType} = require('@discordjs/voice');
 if (!TOKEN) {
   console.error("Press provide a valid Discord Bot Token.");
   return process.exit(1);
@@ -34,17 +35,12 @@ if (!TOKEN) {
  function stream(url)
  {
   if (!url || typeof url !== "string") throw new Error("Invalid url");
-
   const ytdlProcess = ytdl(url, {
-          o: '-',
-          q: '',
-          f: 'bestaudio[ext=webm+acodec=opus+asr=48000]/bestaudio',
-          r: '100K',
-      },
-      {
-          stdio: ['ignore', 'pipe', 'ignore']
-      }
-  );
+          output: '-',
+          quiet: true,
+          format: 'bestaudio/best',
+          limitRate: '100k',
+      }, { stdio: ['ignore', 'pipe', 'ignore'] });
 
   if (!ytdlProcess.stdout) throw new Error('No stdout');
   const stream = ytdlProcess.stdout;
@@ -60,6 +56,7 @@ if (!TOKEN) {
   {
   const resource = createAudioResource(stream(url),{
     inlineVolume: true,
+    inputType:StreamType.WebmOpus,
   })
 
  await player.play(resource,{volume:0.5});
@@ -102,8 +99,8 @@ client.user.setPresence({ activities: [{ name: `${client.config.secret.STATUS}`,
        await playSong(LINKS[getRandomInt(LINKS.length)])
     })
 
-const voiceConnection = getVoiceConnection(channel.guild.id)
-  voiceConnection.on(VoiceConnectionStatus.Disconnected,async  () => {
+    const voiceConnection = getVoiceConnection(channel.guild.id)
+    voiceConnection.on(VoiceConnectionStatus.Disconnected,async  () => {
     const conne = await connectToChannel(channel);
     await conne.subscribe(player);
     await playSong(LINKS[getRandomInt(LINKS.length)]);
